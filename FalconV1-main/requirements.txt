@@ -17,3 +17,4 @@ pyttsx3
 docx2txt
 langchain_community
 litellm
+edge-tts
