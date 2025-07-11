@@ -9,8 +9,6 @@ eel
 pandas
 requests
 google
-
-
 falconai==0.0.2
 packaging
 beautifulsoup4
