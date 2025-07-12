@@ -122,16 +122,43 @@ def export_chat_history(format_type: str = 'csv'):
         print(f"Error exporting chat history: {e}")
         return None
 
-if __name__ == '__main__':
-    print("Starting FALCON UI application...")
-    print("Access the UI at http://localhost:8000")
+# if __name__ == '__main__':
+#     print("Starting FALCON UI application...")
+#     print("Access the UI at http://localhost:8000")
     
+#     try:
+#         eel.start('index.html', size=(990, 540), block=True, host='localhost', port=8000)
+#     except (OSError, IOError) as e:
+#         print(f"Could not start Eel: {e}")
+#         print("Ensure port 8000 is not already in use.")
+#     except Exception as e:
+#         print(f"An unexpected error occurred while starting Eel: {e}")
+#     finally:
+#         print("FALCON UI application has closed.")
+if __name__ == '__main__':
+    import os
+    import eel
+
+    print("Starting FALCON UI application...")
+
+    # Initialize eel with the folder that contains index.html and eel.js
+    eel.init('web')  # Make sure 'web' is the correct folder with your HTML
+
+    # Render will pass PORT via environment variable, default to 8000
+    port = int(os.environ.get("PORT", 8000))
+
+    print(f"Access the UI at http://localhost:{port}")
+
     try:
-        eel.start('index.html', size=(990, 540), block=True, host='localhost', port=8000)
+        # Headless deploy: No browser launch, host='0.0.0.0' exposes it publicly
+        eel.start('index.html', size=(990, 540), block=True, host='0.0.0.0', port=port, mode=None)
+
     except (OSError, IOError) as e:
         print(f"Could not start Eel: {e}")
-        print("Ensure port 8000 is not already in use.")
+        print("Ensure port", port, "is not already in use.")
+
     except Exception as e:
         print(f"An unexpected error occurred while starting Eel: {e}")
+
     finally:
         print("FALCON UI application has closed.")
